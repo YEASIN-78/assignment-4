@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curise Booking</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="css/all.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    
+    <section id="interphase-area">
+          <!--Header and Menu Section-->
+    <header class="container">
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a class="active" href="#">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!--Booking Section-->
+    <main class="main-content container">
+
+        <div class="booking-content">
+            <h1>Cruise Queen</h1>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book./p>
+        </div>
+
+
+        <div class="booking-form">
+            <h3>Book Ocean Time</h3>
+            <div class="input-group">
+                <label for="">Flying From</label>
+                <input class="inp-style" type="text" name="" placeholder="Dhake, Bangladesh">
+            </div>
+            <div class="input-group">
+                <label for="">Flying To</label>
+                <input class="inp-style" type="text" name="" placeholder="New York, United States">
+            </div>
+            <div class="inputs">
+                <div class="input-group">
+                    <label" for="">Departure</label>
+                    <input class="inp-style" type="date" name="">
+                </div>
+                <div class="input-group">
+                    <label for="">Return</label>
+                    <input class="inp-style" type="date" name="">
+                </div>
+            </div>
+            <div class="input-group f-class">
+                <div>
+                    <label for="">First Class ($150)</label>
+                    <input id="first-class-count" class="inp-style inp-width" type="text" value="0">
+                </div>
+                <div class="plus-minus-btn">
+                   <button onclick="handleTicketChange('first-class', true)" class="btn btn-default"><i class="fas fa-plus"></i></button>
+                   <button  onclick="handleTicketChange('first-class', false)" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                </div>
+            </div>
+            
+            <div class="input-group f-class">
+                <div>
+                    <label for="">Economy ($100)</label>
+                    <input id="economy-count" class="inp-style inp-width" type="text" value="0">
+                </div>
+                <div class="plus-minus-btn">
+                    <button onclick="handleTicketChange('economy', true)" class="btn btn-default"><i class="fas fa-plus"></i></button>
+                    <button onclick="handleTicketChange('economy', false)" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                </div>
+            </div>
+            <div class="calculations">
+                <div class="amount">
+                    <div class="left">
+                        <p>Subtotal</p>
+                    </div>
+                    <div class="right">
+                        <p id="sub-total">$500</p>
+                    </div>
+                </div>
+
+                <div class="amount">
+                    <div class="left">
+                        <p>Charge 10% VAT</p>
+                    </div>
+                    <div class="right">
+                        <p id="tax-amount">$50</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="amount">
+                    <div class="left">
+                        <h4>Total</h4>
+                    </div>
+                    <div class="right">
+                        <p id="total-bill">$550</p>
+                    </div>
+                </div>
+            </div>
+            <button id="booking-button" class="btn-style">Book Now</button>
+        </div>
+    </main>
+
+    </section>
+
+    <!--Thank You-->
+    <!-- confirmation area  -->
+
+    <div id="confirmation-area">
+        <h1><span style="color: white;">Congratulations!</span>🎆</h1>
+        <h4 style="color: white;">Your Booking Is Done</h4>
+    </div>
+    <!-- confirmation area  -->
+    <script>
+
+        function handleTicketChange(Ticket,IsIncrease){
+            const TicketInput = document.getElementById(Ticket +'-count');
+            const TicketCount = getInputValue(Ticket);
+            let TicketNewCount = TicketCount;
+            if(IsIncrease == true ){
+                TicketNewCount =TicketCount + 1;
+            }
+            if(IsIncrease == false && TicketCount > 0 ){
+                TicketNewCount = TicketCount - 1;
+            }
+            TicketInput.value = TicketNewCount;
+            calculateTotal();
+        }
+        function calculateTotal(){
+            
+            const economyCount = getInputValue('economy');
+            const firstClassCount = getInputValue('first-class');
+
+            const subTotalBill = economyCount * 100 + firstClassCount * 150;
+            document.getElementById('sub-total').innerText = subTotalBill;
+
+            const tax = subTotalBill * 0.1;
+            document.getElementById('tax-amount').innerText = tax;
+
+            const totalBill = subTotalBill + tax;
+            document.getElementById('total-bill').innerText = totalBill; 
+
+        }
+
+        function getInputValue(Ticket){
+            const ticketInput = document.getElementById( Ticket + '-count');
+            const ticketCount = parseInt(ticketInput.value);
+            return ticketCount;
+        }
+        // confirmation area 
+        document.getElementById('booking-button').addEventListener('click',function(){
+            document.getElementById('interphase-area').style.display = "none";
+
+            document.getElementById('confirmation-area').style.display = "block";
+        })
+        // confirmation area 
+    </script>
+</body>
+
+</html>
